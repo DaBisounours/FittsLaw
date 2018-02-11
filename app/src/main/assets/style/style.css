@@ -1,4 +1,69 @@
-body
+*{
+    box-sizing: border-box;
+}
+
+html, body
 {
-    background: red;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+
+.circle-container
+{
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    padding: 0 0.5cm;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.circle-container-1 {transform: rotate(0deg);}
+.circle-container-2 {transform: rotate(45deg);}
+.circle-container-3 {transform: rotate(90deg);}
+.circle-container-4 {transform: rotate(135deg);}
+.circle-container-5 {transform: rotate(180deg);}
+.circle-container-6 {transform: rotate(-135deg);}
+.circle-container-7 {transform: rotate(-90deg);}
+.circle-container-8 {transform: rotate(-45deg);}
+
+.circle-container.active .circle {
+    background: #1d4088;
+}
+
+.circle
+{
+    float: right;
+    border-radius: 0.5cm;
+    height: 1cm;
+    width: 1cm;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+
+#buttons-container
+{
+    background: rgba(0, 0, 0, 0.1);
+}
+
+#buttons-container > div
+{
+    background: rgba(0, 0, 0, 0.1);
+    content: "";
+    clear: both;
+    display: table;
+    width: 100%;
+}
+
+#buttons-container button
+{
+    display: inline-block;
+    float: left;
+    padding: 0.3cm;
+    margin: 0.5cm;
+    width: calc(33% - 1cm);
+
 }
