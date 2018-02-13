@@ -33,7 +33,12 @@ pairData = {
         pairData.timeStart = undefined;
         pairData.timeEnd = undefined;
         pairData.errors = 0;
-    }
+    },
+    serie: undefined,
+};
+session = {
+    steps: 0,
+    started: false
 };
 
 // Set size of the circles
@@ -62,8 +67,9 @@ function setDistance(distance) {
 
 }
 
-function initExperiment(fingerType) {
-    pairData.fingerType = 'thumb';
+function initExperiment(serie, fingerType) {
+    pairData.fingerType = fingerType;
+    pairData.serie = serie;
     var distance_str = 'sparse';
     var size_str = 'big';
 
@@ -85,6 +91,8 @@ function initExperiment(fingerType) {
     pairData.elements.second = document.getElementById('circle2');
     setDistance(distance_str);
     setSize(size_str);
+    session.started = true;
+    session.steps = 0;
     placeCircles();
 
 }
@@ -93,6 +101,8 @@ function placeCircles() {
     var x1, x2, y1, y2;
     var offsetX = 24;
     var offsetY = 162;
+    var count = 0;
+    var maxIterations = 1000;
     var containerWidth = window.innerWidth;
     var containerHeight = window.innerHeight;
     do {
@@ -103,7 +113,9 @@ function placeCircles() {
         y2 = y1 + pairData.distance * cm *  Math.sin(angle  * 3.14159 / 180);
         var unfit = x2 < offsetX || x2 > containerWidth - pairData.size * cm - offsetX
             || y2 < offsetY || y2 > containerHeight - pairData.size * cm - offsetY;
-    } while (unfit);
+        count++;
+    } while (unfit || count < maxIterations);
+    if (count === maxIterations) throw RangeError("placeCircles() loops over " + maxIterations + "iterations.");
     pairData.elements.first.style.top = y1 + 'px';
     pairData.elements.first.style.left = x1 + 'px';
     pairData.elements.second.style.top = y2 + 'px';
@@ -112,42 +124,87 @@ function placeCircles() {
 
 function circleClicked(event, element) {
     // If first circle
-    if (pairData.first) {
+    if (pairData.first && element === pairData.elements.first) {
         pairData.timeStart = event.timeStamp;
-        //pairData.elements.first.parentElement.style.display = 'none'; TODO replace : remove circle instead
-        // TODO remove first element
+        pairData.elements.first.style.display = 'none';
+        // Switch boolean value
+        pairData.first = !pairData.first;
+        event.stopPropagation();
     }
     // If second circle
-    else {
+    else if(!pairData.first && element === pairData.elements.second){
+        // Get ending time
         pairData.timeEnd = event.timeStamp;
-        var time = pairData.timeEnd - pairData.timeStart;
-        console.log(time + 'ms');
 
-        // Record the action TODO uncomment
-        /*window.addResult({
-            serie: "MOCK_SERIE",
+        // Calculate time spent
+        var time = pairData.timeEnd - pairData.timeStart;
+
+        // Re print first circle
+        pairData.elements.first.style.display = 'initial';
+
+        var result = {
+            serie: pairData.serie,
             distance: pairData.distance,
             time: time,
             size: pairData.size,
-            fingerType: pairData.fingerType
+            fingerType: pairData.fingerType,
             errors: pairData.errors
-        });*/
+        };
+        // Record the action TODO uncomment
+        /*window.addResult(result);*/
+        // TODO remove
+        console.log(result);
 
-        // Reset the data
+        // Reset the times and errors
         pairData.re_init();
 
-        // Update the screen
-        // TODO update screen
+        session.steps++;
+        if (session.steps < settings.trainingStepNumber) {
+            // TODO Random?
+        } else if (session.steps === settings.trainingStepNumber) {
+            setSize('medium');
+            setDistance('medium');
+        } else if (session.steps === settings.trainingStepNumber + settings.recordedSteps) {
+            setSize('small');
+            setDistance('medium');
+        } else if (session.steps === settings.trainingStepNumber + 2*settings.recordedSteps) {
+            setSize('small');
+            setDistance('cluttered');
+        } else if (session.steps === settings.trainingStepNumber + 3*settings.recordedSteps) {
+            setSize('medium');
+            setDistance('cluttered');
+        } else if (session.steps === settings.trainingStepNumber + 4*settings.recordedSteps) {
+            setSize('big');
+            setDistance('cluttered');
+        } else if (session.steps === settings.trainingStepNumber + 5*settings.recordedSteps) {
+            setSize('medium');
+            setDistance('sparse');
+        } else if (session.steps === settings.trainingStepNumber + 6*settings.recordedSteps) {
+            setSize('big');
+            setDistance('sparse');
+        } else if (session.steps === settings.trainingStepNumber + 7*settings.recordedSteps) {
+            setSize('big');
+            setDistance('medium');
+        } else if (session.steps === settings.trainingStepNumber + 8*settings.recordedSteps) {
+            setSize('small');
+            setDistance('sparse');
+        } else if (session.steps >= settings.trainingStepNumber + 9*settings.recordedSteps) {
+            window.toggleResults();
+        }
 
-        // Update the data TODO elements, distance, size
+
+        // Update the screen
+        placeCircles();
+
+        event.stopPropagation();
+        pairData.first = !pairData.first;
     }
-    // Switch boolean value
-    pairData.first = !pairData.first;
-    event.stopPropagation();
+
 }
 
 function circleMissed(event, element) {
     console.log(element);
+    pairData.errors++;
 }
 
-initExperiment('finger');
+initExperiment('evan', 'finger');
