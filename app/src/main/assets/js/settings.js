@@ -102,7 +102,7 @@ function placeCircles() {
     var offsetX = 24;
     var offsetY = 162;
     var count = 0;
-    var maxIterations = 10000;
+    var maxIterations = 100000;
     var containerWidth = window.innerWidth;
     var containerHeight = window.innerHeight;
     do {
@@ -190,6 +190,7 @@ function circleClicked(event, element) {
             setDistance('sparse');
         } else if (session.steps >= settings.trainingStepNumber + 9*settings.recordedSteps) {
             window.toggleResults();
+            session.started = false;
         }
 
 
