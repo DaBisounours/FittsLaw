@@ -102,7 +102,7 @@ function placeCircles() {
     var offsetX = 24;
     var offsetY = 162;
     var count = 0;
-    var maxIterations = 1000;
+    var maxIterations = 10000;
     var containerWidth = window.innerWidth;
     var containerHeight = window.innerHeight;
     do {
@@ -151,7 +151,7 @@ function circleClicked(event, element) {
             errors: pairData.errors
         };
         // Record the action TODO uncomment
-        /*window.addResult(result);*/
+        window.addResult(result);
         // TODO remove
         console.log(result);
 
