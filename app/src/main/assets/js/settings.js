@@ -11,7 +11,7 @@ settings = {
         sparse : 12.5
     },
     trainingStepNumber: 5,
-    recordedSteps: 10 // Per couple (size, distance)
+    recordedSteps: 5 // Per couple (size, distance)
 };
 
 // Empirical conversion  cm -> px
@@ -101,7 +101,7 @@ function initExperiment(serie, fingerType) {
 function placeCircles() {
     var x1, x2, y1, y2;
     var offsetX = 0;
-    var offsetY = 0;
+    var offsetY = 20;
     var count = 0;
     var maxIterations = 100000;
     var containerWidth = window.innerWidth;
