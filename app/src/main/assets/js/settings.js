@@ -99,10 +99,10 @@ function initExperiment(serie, fingerType) {
 
 function placeCircles() {
     var x1, x2, y1, y2;
-    var offsetX = 24;
-    var offsetY = 162;
+    var offsetX = 0;
+    var offsetY = 0;
     var count = 0;
-    var maxIterations = 100000;
+    var maxIterations = 1000;
     var containerWidth = window.innerWidth;
     var containerHeight = window.innerHeight;
     do {
@@ -114,7 +114,8 @@ function placeCircles() {
         var unfit = x2 < offsetX || x2 > containerWidth - pairData.size * cm - offsetX
             || y2 < offsetY || y2 > containerHeight - pairData.size * cm - offsetY;
         count++;
-    } while (unfit || count < maxIterations);
+        console.log(x1 + ' ' + x2 + ' ' + y1 + ' ' + y2 + ' ' + unfit);
+    } while (unfit && count < maxIterations);
     if (count === maxIterations) throw RangeError("placeCircles() loops over " + maxIterations + "iterations.");
     pairData.elements.first.style.top = y1 + 'px';
     pairData.elements.first.style.left = x1 + 'px';
