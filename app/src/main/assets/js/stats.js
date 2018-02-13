@@ -204,7 +204,9 @@ window.displayResults = function() {
   for (var distance in dataByDistance) {
     distances.push(distance);
   }
-  distances = distances.sort();
+  distances = distances.map(Number).sort(function(a,b) {
+    return a > b ? 1 : -1;
+  }).map(String);
   for (var key in series) {
     var dataset = {};
     dataset.type = 'line';
@@ -214,7 +216,7 @@ window.displayResults = function() {
     dataset.borderColor = colors[datasets.length % colors.length];
     dataset.data = distances.map(function (distance) {
       var sameDistanceSerieData = series[key].filter(function(cur) {
-        return Math.round(cur.distance).toString() === distance;
+        return Math.floor(cur.distance).toString() === distance;
       });
       return sameDistanceSerieData.reduce(function(sum, cur) {
         sum += cur.time;
