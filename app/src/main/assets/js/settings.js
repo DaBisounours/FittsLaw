@@ -7,8 +7,8 @@ settings = {
     },
     distances : { // Padding L&R
         cluttered : 3,
-        medium : 5.5,
-        sparse : 12.5
+        medium : 6,
+        sparse : 12
     },
     trainingStepNumber: 5,
     recordedSteps: 5 // Per couple (size, distance)
@@ -101,7 +101,7 @@ function initExperiment(serie, fingerType) {
 function placeCircles() {
     var x1, x2, y1, y2;
     var offsetX = 0;
-    var offsetY = 0;
+    var offsetY = 22 + settings.sizes.big*cm;
     var count = 0;
     var maxIterations = 100000;
     var containerWidth = document.getElementById('experiment-container').clientWidth;
