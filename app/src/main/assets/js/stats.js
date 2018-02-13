@@ -259,6 +259,11 @@ window.displayResults = function() {
   };
   wrapper.append(byDistance);
   new Chart(byDistance.getContext('2d'), byDistanceOptions);
+
+  var closebtn = document.createElement('button');
+  closebtn.innerHTML = 'Close';
+  closebtn.onclick = window.hideResults;
+  wrapper.append(closebtn);
 };
 window.hideResults = function() {
   document.body.removeChild(document.getElementById('stats'));

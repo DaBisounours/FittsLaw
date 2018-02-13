@@ -212,4 +212,8 @@ function circleMissed(event, element) {
     pairData.errors++;
 }
 
-initExperiment('evan', 'finger');
+window.start = function start() {
+  var name = document.getElementById('name').value;
+  var finger = document.getElementById('finger').value;
+  initExperiment(name, finger);
+};
