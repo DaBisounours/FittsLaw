@@ -30,6 +30,21 @@ window.addResult = function addResult(params) {
   window._saveData();
 };
 
+var reset = 0;
+window.resetAllResults = function() {
+  reset++;
+  setTimeout(function() {
+    reset--;
+  }, 1000);
+  if (reset >= 5) {
+    console.log('reset !!!');
+    window.data.measurements = [];
+    window._saveData();
+  } else {
+    console.log('reset confirm', reset, '/', 5);
+  }
+};
+
 window.displayResults = function() {
   var wrapper = document.createElement('div');
   wrapper.id = 'stats';
