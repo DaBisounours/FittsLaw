@@ -11,7 +11,7 @@ settings = {
         sparse : 12.5
     },
     trainingStepNumber: 5,
-    recordedSteps: 10 // Per couple (size, distance)
+    recordedSteps: 5 // Per couple (size, distance)
 };
 
 // Empirical conversion  cm -> px
@@ -93,6 +93,7 @@ function initExperiment(serie, fingerType) {
     setSize(size_str);
     session.started = true;
     session.steps = 0;
+    document.getElementById('remaining').innerHTML = ((9*settings.recordedSteps + settings.trainingStepNumber)).toString();
     placeCircles();
 
 }
@@ -100,7 +101,7 @@ function initExperiment(serie, fingerType) {
 function placeCircles() {
     var x1, x2, y1, y2;
     var offsetX = 0;
-    var offsetY = 0;
+    var offsetY = 20;
     var count = 0;
     var maxIterations = 100000;
     var containerWidth = window.innerWidth;
@@ -154,15 +155,17 @@ function circleClicked(event, element) {
             fingerType: pairData.fingerType,
             errors: pairData.errors
         };
-        // Record the action TODO uncomment
-        window.addResult(result);
-        // TODO remove
+
+        if (session.steps > settings.trainingStepNumber) {
+            window.addResult(result);
+        }
         console.log(result);
 
         // Reset the times and errors
         pairData.re_init();
 
         session.steps++;
+        document.getElementById('remaining').innerHTML = ((9*settings.recordedSteps + settings.trainingStepNumber)-session.steps).toString();
         if (session.steps < settings.trainingStepNumber) {
             // TODO Random?
         } else if (session.steps === settings.trainingStepNumber) {
