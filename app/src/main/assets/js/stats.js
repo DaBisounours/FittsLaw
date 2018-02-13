@@ -1,15 +1,7 @@
 var CANVAS_HEIGHT = 270;
 var colors = ['#3F549C', '#9733CD', '#C6519A', '#F33FAB', '#F76A92'];
 // load data from localstorage if available
-var data = {};
-data.measurements = [];
-for (var i = 0; i < 600; i++) {
-  var fingerType = i < 300 ? 'thumb' : 'finger';
-  var distance = Math.floor(Math.random() * 3) * 3 + 3; // cm
-  var size = (Math.floor(Math.random() * 3) + 1.5) / 2;
-  var time = (((fingerType === 'thumb' ? 50 : 90) + 50 * Math.random()) / size) * distance + 2;
-  data.measurements.push({ fingerType: fingerType, serie: '???', distance: distance, time: time, size: size, difficulty: Math.log(1 + (distance / size)) });
-}
+var data = { measurements: [] };
 try {
   data = window.localStorage.getItem('fittslaw-data');
   data = JSON.parse(data);
