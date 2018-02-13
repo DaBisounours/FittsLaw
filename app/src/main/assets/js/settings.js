@@ -102,7 +102,7 @@ function placeCircles() {
     var offsetX = 0;
     var offsetY = 0;
     var count = 0;
-    var maxIterations = 1000;
+    var maxIterations = 100000;
     var containerWidth = window.innerWidth;
     var containerHeight = window.innerHeight;
     do {
@@ -114,13 +114,16 @@ function placeCircles() {
         var unfit = x2 < offsetX || x2 > containerWidth - pairData.size * cm - offsetX
             || y2 < offsetY || y2 > containerHeight - pairData.size * cm - offsetY;
         count++;
-        console.log(x1 + ' ' + x2 + ' ' + y1 + ' ' + y2 + ' ' + unfit);
+        //console.log(x1 + ' ' + x2 + ' ' + y1 + ' ' + y2 + ' ' + unfit);
     } while (unfit && count < maxIterations);
-    if (count === maxIterations) throw RangeError("placeCircles() loops over " + maxIterations + "iterations.");
-    pairData.elements.first.style.top = y1 + 'px';
-    pairData.elements.first.style.left = x1 + 'px';
-    pairData.elements.second.style.top = y2 + 'px';
-    pairData.elements.second.style.left = x2 + 'px';
+    if (count === maxIterations)
+        throw RangeError("placeCircles() loops over " + maxIterations + "iterations.");
+    else{
+        pairData.elements.first.style.top = y1 + 'px';
+        pairData.elements.first.style.left = x1 + 'px';
+        pairData.elements.second.style.top = y2 + 'px';
+        pairData.elements.second.style.left = x2 + 'px';
+    }
 }
 
 function circleClicked(event, element) {

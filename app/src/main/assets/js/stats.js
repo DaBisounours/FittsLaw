@@ -3,8 +3,10 @@ var colors = ['#3F549C', '#9733CD', '#C6519A', '#F33FAB', '#F76A92'];
 // load data from localstorage if available
 var data = { measurements: [] };
 try {
-  data = window.localStorage.getItem('fittslaw-data');
-  data = JSON.parse(data);
+  if (window.localStorage.getItem('fittslaw-data')){
+    data = window.localStorage.getItem('fittslaw-data');
+    data = JSON.parse(data);
+  }
 }
 catch(e) {}
 window.data = data;

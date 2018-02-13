@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Settings
         mainWebView.getSettings().setJavaScriptEnabled(true);
+        mainWebView.getSettings().setDomStorageEnabled(true);
 
         // Set the html page
         mainWebView.loadUrl("file:///android_asset/main.html");
