@@ -101,11 +101,11 @@ function initExperiment(serie, fingerType) {
 function placeCircles() {
     var x1, x2, y1, y2;
     var offsetX = 0;
-    var offsetY = 20;
+    var offsetY = 0;
     var count = 0;
     var maxIterations = 100000;
-    var containerWidth = window.innerWidth;
-    var containerHeight = window.innerHeight;
+    var containerWidth = document.getElementById('experiment-container').clientWidth;
+    var containerHeight = document.getElementById('experiment-container').clientHeight;
     do {
         x1 = Math.random() * (containerWidth - pairData.size * cm - offsetX) + offsetX/2;
         y1 = Math.random() * (containerHeight - pairData.size * cm - offsetY) + offsetY/2;

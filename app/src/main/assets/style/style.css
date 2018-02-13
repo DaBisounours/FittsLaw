@@ -92,7 +92,8 @@ html, body
 
 #experiment-container
 {
-    height: 100%;
+    height: calc(100% - 22px);
+    margin-top: 22px;
 }
 
 .remaining-container {
