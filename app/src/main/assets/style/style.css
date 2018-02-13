@@ -16,8 +16,8 @@ html, body
 {
     position: absolute;
     top: 50%;
-    width: 100%;
-    max-width: 100%;
+
+
     padding: 0 0.5cm;
     background: rgba(0, 0, 0, 0.1);
 }
@@ -31,17 +31,35 @@ html, body
 .circle-container-7 {transform: rotate(-90deg);}
 .circle-container-8 {transform: rotate(-45deg);}
 
-.circle-container.active .circle {
-    background: #1d4088;
+.start {
+    background: #118801;
+
+}
+.end {
+    background: #881101;
+
 }
 
 .circle
 {
-    float: right;
+    position: absolute;
     border-radius: 0.5cm;
     height: 1cm;
     width: 1cm;
-    background: rgba(0, 0, 0, 0.1);
+    text-align: center;
+    line-height: 1cm;
+    color: white;
+    font-family: "Droid Sans", sans-serif;
+}
+
+#circle1
+{
+    float: left;
+}
+
+#circle2
+{
+    float: right;
 }
 
 
@@ -67,4 +85,9 @@ html, body
     margin: 0.5cm;
     width: calc(33% - 1cm);
 
+}
+
+#experiment-container
+{
+    height: 100%;
 }
